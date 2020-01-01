@@ -1,8 +1,12 @@
 const path = require('path');
+// import our logger middleware
+const logger = require('./middleware/logger');
 // Basic Server Syntax in Express
 const express = require('express');
-
 const app = express();
+
+// create simple middleware, and init it in the app
+app.use(logger);
 
 // fake database of users
 const members = require('./members')

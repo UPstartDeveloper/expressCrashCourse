@@ -5,14 +5,25 @@ const logger = require('./middleware/logger');
 const express = require('express');
 const app = express();
 
-// create simple middleware, and init it in the app
-app.use(logger);
-
 // fake database of users
 const members = require('./members')
 
-// Make a simple RESTful API, that returns members
+// Make a simple RESTful API, that GETS all members
 app.get('/api/members', (req, res) => res.json(members));
+
+// GET One member
+app.get('/api/members/:id', (req, res) => {
+    // check to see if a member in the db has the requested id
+    const found = members.some(member => member.id === parseInt(req.params.id));
+    if (found) {
+        // return the data if it exists
+        res.json(members.filter(member => member.id === parseInt(req.params.id)));
+    } else {
+        // otherwise, raise a 400 error (bad request)
+        res.status(400).json({ msg: `No member with the id of ${req.params.id}`});
+
+    }
+});
 
 // set static folder
 app.use(express.static(path.join(__dirname, 'public')));

@@ -4,6 +4,12 @@ const express = require('express');
 
 const app = express();
 
+// fake database of users
+const members = require('./members')
+
+// Make a simple RESTful API, that returns members
+app.get('/api/members', (req, res) => res.json(members));
+
 // set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 

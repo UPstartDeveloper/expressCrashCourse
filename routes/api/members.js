@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
     res.json(members);
 });
 
-// UPDATE a method
+// UPDATE a member
 router.put('/:id', (req, res) => {
     // check to see if a member in the db has the requested id
     const found = members.some(member => member.id === parseInt(req.params.id));
@@ -61,6 +61,22 @@ router.put('/:id', (req, res) => {
         // otherwise, raise a 400 error (bad request)
         res.status(400).json({ msg: `No member with the id of ${req.params.id}`});
 
+    }
+});
+
+// DELETE One member
+router.delete('/:id', (req, res) => {
+    // check to see if a member in the db has the requested id
+    const found = members.some(member => member.id === parseInt(req.params.id));
+    if (found) {
+        // return all members except the one that's "deleted"
+        res.json({
+            msg: 'Member deleted ',
+            members: members.filter(member => member.id !== parseInt(req.params.id))
+        });
+    } else {
+        // otherwise, raise a 400 error (bad request)
+        res.status(400).json({ msg: `No member with the id of ${req.params.id}`});
     }
 });
 

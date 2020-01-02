@@ -5,6 +5,10 @@ const logger = require('./middleware/logger');
 const express = require('express');
 const app = express();
 
+// Body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false}));
+
 // set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 

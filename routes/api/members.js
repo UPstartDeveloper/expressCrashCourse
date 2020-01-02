@@ -37,7 +37,8 @@ router.post('/', (req, res) => {
     // add the new Member to our models "db"
     members.push(newMember);
     // send back a response
-    res.json(members);
+    res.json(members); // JSON version (for an API)
+    // res.redirect('/'); // HTML version (for a server-side app)
 });
 
 // UPDATE a member

@@ -40,4 +40,28 @@ router.post('/', (req, res) => {
     res.json(members);
 });
 
+// UPDATE a method
+router.put('/:id', (req, res) => {
+    // check to see if a member in the db has the requested id
+    const found = members.some(member => member.id === parseInt(req.params.id));
+    if (found) {
+        // edit the member
+        const updMember = req.body;
+        // find the member
+        members.forEach(member => {
+            if (member.id === parseInt(req.params.id)) {
+                member.name = updMember.name ? updMember.name : member.name;
+                member.email = updMember.email ? updMember.email : member.email;
+
+                // send back a response
+                res.json({ msg: 'Member updated', member });
+            }
+        });
+    } else {
+        // otherwise, raise a 400 error (bad request)
+        res.status(400).json({ msg: `No member with the id of ${req.params.id}`});
+
+    }
+});
+
 module.exports = router;

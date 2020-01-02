@@ -6,13 +6,18 @@ const express = require('express');
 const app = express();
 // import Handlebars
 const exphbs = require('express-handlebars');
+// import Members
+const members = require('./Members');
 
 // Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 
 // Route for index page
-app.get('/', (req, res) => res.render('index'));
+app.get('/', (req, res) => res.render('index', {
+    title: "Express Said What?",
+    members
+}));
 
 // Handlebars middleware
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));

@@ -1,1 +1,9 @@
-<h1>Members App</h1>
+<h1 class="text-center mb-3">{{ title }}</h1>
+
+<!-- display all the models -->
+<h4>Members</h4>
+<ul class="list-group">
+    {{#each members}}
+    <li class="list-group-item">{{ this.name }}: {{ this.email }}</li>
+    {{/each }}
+</ul>
